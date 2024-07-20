@@ -37,7 +37,14 @@ async def self(
     alter: Optional[int],
     ):
         r = responder()
-        echo = r.respond(echo, scramble, alter)
+        if scramble == None:
+            echo = r.respond(echo,0,alter)
+        elif alter == None:
+             echo = r.respond(echo,scramble,0)
+        elif scramble == None and alter == None:
+             echo = r.respond(echo,0,0)
+        else:
+            echo = r.respond(echo, scramble, alter)
         await interaction.response.send_message(f'{echo}')
 
 
