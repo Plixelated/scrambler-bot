@@ -27,24 +27,21 @@ tree = app_commands.CommandTree(client)
 )
 @app_commands.describe(
     echo="Enter Text to be Scrambled",
-    scramble="What are the chances the text will be scrambled?",
+    #scramble="What are the chances the text will be scrambled?",
     alter="What Percent of the Text is Scrambled?",
 )
 async def self(
     interaction: discord.Interaction, 
     echo: str,
-    scramble: Optional[int],
+    #scramble: Optional[int],
     alter: Optional[int],
     ):
         r = responder()
-        if scramble == None:
-            echo = r.respond(echo,0,alter)
-        elif alter == None:
-             echo = r.respond(echo,scramble,0)
-        elif scramble == None and alter == None:
-             echo = r.respond(echo,0,0)
+
+        if not alter:
+             r.respond(echo, 0, 0)
         else:
-            echo = r.respond(echo, scramble, alter)
+            echo = r.respond(echo, 100, alter)
         await interaction.response.send_message(f'{echo}')
 
 
